@@ -177,7 +177,10 @@
                         <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">Tentang Kami</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('program') ? 'active' : '' }}" href="{{ route('program') }}">Program</a>
+                        <a class="nav-link {{ request()->routeIs('program*') ? 'active' : '' }}" href="{{ route('program') }}">Program</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('donasi*') ? 'active' : '' }}" href="{{ route('donasi') }}">Donasi</a>
                     </li>
                     <li class="nav-item ms-3">
                         <a href="{{ route('login') }}" class="btn btn-login">
@@ -210,6 +213,7 @@
                         <li class="mb-2"><a href="{{ route('home') }}">Beranda</a></li>
                         <li class="mb-2"><a href="{{ route('about') }}">Tentang Kami</a></li>
                         <li class="mb-2"><a href="{{ route('program') }}">Program</a></li>
+                        <li class="mb-2"><a href="{{ route('donasi') }}">Donasi</a></li>
                         <li class="mb-2"><a href="{{ route('login') }}">Login Admin</a></li>
                     </ul>
                 </div>
@@ -233,7 +237,119 @@
         </div>
     </footer>
 
+    <div id="chatbot-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+        <div id="chatbot-button" onclick="toggleChatbot()" style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-green), #00c968); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 166, 81, 0.3);">
+            <i class="fas fa-comments text-white" style="font-size: 28px;"></i>
+        </div>
+
+        <div id="chatbot-window" style="display: none; position: absolute; bottom: 80px; right: 0; width: 350px; height: 500px; background: white; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); overflow: hidden; flex-direction: column;">
+            <div style="background: linear-gradient(135deg, var(--primary-green), #00c968); color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h5 class="mb-0 fw-bold">Asisten Virtual</h5>
+                    <small>Tanyakan seputar program kami</small>
+                </div>
+                <button onclick="toggleChatbot()" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div id="chatbot-messages" style="flex: 1; overflow-y: auto; padding: 20px; background: #f5f5f5;">
+                <div class="bot-message" style="margin-bottom: 15px;">
+                    <div style="background: white; padding: 12px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <small class="text-muted d-block mb-1">Bot</small>
+                        <p class="mb-0">Halo! Selamat datang di Program Khitan Gratis Bazma x Pertamina. Ada yang bisa saya bantu?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding: 15px; background: white; border-top: 1px solid #e0e0e0;">
+                <form id="chatbot-form" onsubmit="sendMessage(event)" style="display: flex; gap: 10px;">
+                    <input type="text" id="chatbot-input" placeholder="Ketik pesan..." style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; outline: none;">
+                    <button type="submit" style="background: var(--primary-green); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let chatbotOpen = false;
+        const sessionId = 'session_' + Math.random().toString(36).substring(7) + '_' + Date.now();
+
+        function toggleChatbot() {
+            chatbotOpen = !chatbotOpen;
+            const window = document.getElementById('chatbot-window');
+            window.style.display = chatbotOpen ? 'flex' : 'none';
+        }
+
+        async function sendMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById('chatbot-input');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            const messagesDiv = document.getElementById('chatbot-messages');
+
+            const userMessage = document.createElement('div');
+            userMessage.className = 'user-message';
+            userMessage.style.marginBottom = '15px';
+            userMessage.style.textAlign = 'right';
+            userMessage.innerHTML = `
+                <div style="display: inline-block; background: var(--primary-green); color: white; padding: 12px; border-radius: 12px; max-width: 70%;">
+                    <small class="d-block mb-1" style="opacity: 0.8;">Anda</small>
+                    <p class="mb-0">${message}</p>
+                </div>
+            `;
+            messagesDiv.appendChild(userMessage);
+
+            input.value = '';
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            try {
+                const response = await fetch('{{ route('chatbot.chat') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        session_id: sessionId
+                    })
+                });
+
+                const data = await response.json();
+
+                const botMessage = document.createElement('div');
+                botMessage.className = 'bot-message';
+                botMessage.style.marginBottom = '15px';
+                botMessage.innerHTML = `
+                    <div style="background: white; padding: 12px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <small class="text-muted d-block mb-1">Bot</small>
+                        <p class="mb-0" style="white-space: pre-line;">${data.response}</p>
+                    </div>
+                `;
+                messagesDiv.appendChild(botMessage);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            } catch (error) {
+                console.error('Error:', error);
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'bot-message';
+                errorMessage.style.marginBottom = '15px';
+                errorMessage.innerHTML = `
+                    <div style="background: #ffebee; padding: 12px; border-radius: 12px;">
+                        <small class="text-danger d-block mb-1">Error</small>
+                        <p class="mb-0">Maaf, terjadi kesalahan. Silakan coba lagi.</p>
+                    </div>
+                `;
+                messagesDiv.appendChild(errorMessage);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+        }
+    </script>
     @stack('scripts')
 </body>
 </html>
