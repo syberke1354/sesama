@@ -4,38 +4,202 @@
 
 @section('content')
 <style>
-    .stat-card {
-        border-radius: 8px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        border-left: 4px solid var(--primary-green);
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    @keyframes shimmer {
+        0% {
+            background-position: -1000px 0;
+        }
+        100% {
+            background-position: 1000px 0;
+        }
+    }
+
+    .banner-section {
+        animation: fadeInUp 0.6s ease-out;
+        background: linear-gradient(135deg, #00A651 0%, #00c968 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 166, 81, 0.15);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .banner-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        animation: shimmer 3s infinite;
+    }
+
+    .stat-card {
+        border-radius: 12px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        border-left: 4px solid var(--primary-green);
+        animation: fadeInUp 0.6s ease-out;
+        animation-fill-mode: both;
+        background: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, transparent 0%, rgba(0, 166, 81, 0.03) 100%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .stat-card:hover::before {
+        opacity: 1;
+    }
+
+    .stat-card:nth-child(1) { animation-delay: 0.1s; }
+    .stat-card:nth-child(2) { animation-delay: 0.2s; }
+    .stat-card:nth-child(3) { animation-delay: 0.3s; }
+    .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
     .stat-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.15);
     }
 
     .stat-icon {
         width: 60px;
         height: 60px;
-        border-radius: 8px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 24px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+    }
+
+    .stat-card:hover .stat-icon {
+        transform: rotate(10deg) scale(1.1);
+        animation: pulse 1s infinite;
+    }
+
+    .stat-card h2 {
+        transition: all 0.3s ease;
+    }
+
+    .stat-card:hover h2 {
+        transform: scale(1.1);
     }
 
     .progress-bar {
         background: var(--primary-green);
-        transition: width 0.6s ease;
+        transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .progress-bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        animation: shimmer 2s infinite;
     }
 
     .info-box {
         background: white;
-        border-radius: 8px;
+        border-radius: 12px;
         padding: 24px;
         border: 1px solid var(--border-color);
+        animation: slideInLeft 0.6s ease-out;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .info-box:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
     }
 
     .activity-item {
@@ -43,11 +207,132 @@
         border-left: 3px solid var(--primary-green);
         background: #f8f9fa;
         margin-bottom: 12px;
-        border-radius: 4px;
+        border-radius: 8px;
+        animation: slideInRight 0.6s ease-out;
+        animation-fill-mode: both;
+        transition: all 0.3s ease;
+    }
+
+    .activity-item:nth-child(1) { animation-delay: 0.1s; }
+    .activity-item:nth-child(2) { animation-delay: 0.2s; }
+
+    .activity-item:hover {
+        transform: translateX(8px);
+        background: #e8f5e9;
+        border-left-width: 5px;
+    }
+
+    .promo-card {
+        animation: scaleIn 0.6s ease-out;
+        animation-fill-mode: both;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .promo-card:nth-child(1) { animation-delay: 0.2s; }
+    .promo-card:nth-child(2) { animation-delay: 0.3s; }
+
+    .promo-card:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+    }
+
+    .promo-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+        transform: rotate(45deg);
+        transition: all 0.6s ease;
+    }
+
+    .promo-card:hover::before {
+        right: 100%;
+    }
+
+    .btn {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.2);
+        transform: translate(-50%, -50%);
+        transition: width 0.5s ease, height 0.5s ease;
+    }
+
+    .btn:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .btn:active {
+        transform: translateY(0);
+    }
+
+    .icon-float {
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .fade-in {
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    h2, h5 {
+        position: relative;
+    }
+
+    h2::after, h5::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--primary-green);
+        transition: width 0.4s ease;
+    }
+
+    .stat-card:hover h2::after {
+        width: 50%;
+    }
+
+    .info-box:hover h5::after {
+        width: 40%;
+    }
+
+    .card {
+        transition: all 0.3s ease;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
     }
 </style>
 
-<!-- Banner Section -->
 <div class="banner-section mb-4">
     <div class="row align-items-center">
         <div class="col-md-8">
@@ -55,12 +340,11 @@
             <p class="mb-0">Kolaborasi Bazma dan Pertamina untuk mewujudkan pendidikan dan kesehatan anak Indonesia yang lebih baik</p>
         </div>
         <div class="col-md-4 text-end">
-            <i class="fas fa-hands-helping" style="font-size: 80px; opacity: 0.3;"></i>
+            <i class="fas fa-hands-helping icon-float" style="font-size: 80px; opacity: 0.3;"></i>
         </div>
     </div>
 </div>
 
-<!-- Statistics Cards -->
 <div class="row mb-4">
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card stat-card h-100">
@@ -124,16 +408,16 @@
                         <i class="fas fa-chart-line" style="color: #17a2b8;"></i>
                     </div>
                 </div>
-                <div class="progress mt-3" style="height: 6px;">
+                <div class="progress mt-3" style="height: 8px; background: #e0f7fa; border-radius: 10px; overflow: hidden;">
                     <div class="progress-bar" role="progressbar"
-                         style="width: {{ $totalRecipients > 0 ? ($distributedCount / $totalRecipients) * 100 : 0 }}%"></div>
+                         style="width: 0%; background: linear-gradient(90deg, #17a2b8, #00c9db);"
+                         data-target="{{ $totalRecipients > 0 ? ($distributedCount / $totalRecipients) * 100 : 0 }}"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Information Cards -->
 <div class="row mb-4">
     <div class="col-md-6 mb-4">
         <div class="info-box h-100">
@@ -174,13 +458,12 @@
     </div>
 </div>
 
-<!-- Advertisement / Promotional Banners -->
 <div class="row mb-4">
     <div class="col-12">
-        <h5 class="fw-bold mb-3" style="color: var(--primary-dark);">Informasi & Pengumuman</h5>
+        <h5 class="fw-bold mb-3 fade-in" style="color: var(--primary-dark);">Informasi & Pengumuman</h5>
     </div>
     <div class="col-md-6 mb-3">
-        <div class="card h-100" style="border: none; overflow: hidden;">
+        <div class="card promo-card h-100" style="border: none; overflow: hidden;">
             <div style="background: linear-gradient(135deg, #00A651, #00c968); padding: 30px; color: white;">
                 <h5 class="fw-bold mb-2">Tentang Bazma</h5>
                 <p class="mb-3" style="font-size: 14px;">
@@ -193,7 +476,7 @@
         </div>
     </div>
     <div class="col-md-6 mb-3">
-        <div class="card h-100" style="border: none; overflow: hidden;">
+        <div class="card promo-card h-100" style="border: none; overflow: hidden;">
             <div style="background: linear-gradient(135deg, #0066B3, #0088dd); padding: 30px; color: white;">
                 <h5 class="fw-bold mb-2">Tentang Pertamina</h5>
                 <p class="mb-3" style="font-size: 14px;">
@@ -207,8 +490,7 @@
     </div>
 </div>
 
-<!-- Action Buttons -->
-<div class="row">
+<div class="row fade-in">
     <div class="col-12">
         <div class="d-flex gap-2 flex-wrap">
             <a href="{{ route('recipients.index') }}" class="btn btn-primary">
@@ -221,5 +503,34 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const progressBar = document.querySelector('.progress-bar');
+        if (progressBar) {
+            const targetWidth = progressBar.getAttribute('data-target');
+            setTimeout(() => {
+                progressBar.style.width = targetWidth + '%';
+            }, 300);
+        }
+
+        const statCards = document.querySelectorAll('.stat-card h2');
+        statCards.forEach((element, index) => {
+            const finalValue = parseInt(element.textContent);
+            if (!isNaN(finalValue)) {
+                let currentValue = 0;
+                const increment = finalValue / 50;
+                const timer = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= finalValue) {
+                        element.textContent = finalValue + (element.textContent.includes('%') ? '%' : '');
+                        clearInterval(timer);
+                    } else {
+                        element.textContent = Math.floor(currentValue) + (element.textContent.includes('%') ? '%' : '');
+                    }
+                }, 20);
+            }
+        });
+    });
+</script>
 
 @endsection
