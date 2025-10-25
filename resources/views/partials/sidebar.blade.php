@@ -57,37 +57,6 @@
             </div>
         </li>
 
-        <!-- Dropdown: Website Management -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-toggle="collapse" href="#websiteMenu" role="button"
-               aria-expanded="{{ request()->routeIs('admin.programs.*') || request()->routeIs('admin.donations.*') || request()->routeIs('admin.chatbot.*') ? 'true' : 'false' }}">
-                <span><i class="fas fa-globe me-2"></i> Website</span>
-                <i class="fas fa-chevron-down"></i>
-            </a>
-            <div class="collapse {{ request()->routeIs('admin.programs.*') || request()->routeIs('admin.donations.*') || request()->routeIs('admin.chatbot.*') ? 'show' : '' }}" id="websiteMenu">
-                <ul class="nav flex-column ms-3 mt-2">
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.programs.*') ? 'active' : '' }}"
-                           href="{{ route('admin.programs.index') }}">
-                            <i class="fas fa-hands-helping me-2"></i> Program
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.donations.*') ? 'active' : '' }}"
-                           href="{{ route('admin.donations.index') }}">
-                            <i class="fas fa-donate me-2"></i> Donasi
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.chatbot.*') ? 'active' : '' }}"
-                           href="{{ route('admin.chatbot.index') }}">
-                            <i class="fas fa-robot me-2"></i> Chatbot
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
         <hr class="mx-3 my-3">
 
         <!-- Logout -->

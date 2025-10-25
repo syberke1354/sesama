@@ -30,13 +30,9 @@ Route::get('/about', function () {
     return view('public.about');
 })->name('about');
 
-Route::get('/program', [App\Http\Controllers\ProgramController::class, 'index'])->name('program');
-Route::get('/program/{id}', [App\Http\Controllers\ProgramController::class, 'show'])->name('program.show');
-
-Route::get('/donasi', [App\Http\Controllers\DonationController::class, 'index'])->name('donasi');
-Route::get('/donasi/{id}', [App\Http\Controllers\DonationController::class, 'show'])->name('donasi.show');
-
-Route::post('/chatbot/message', [App\Http\Controllers\ChatbotController::class, 'chat'])->name('chatbot.chat');
+Route::get('/program', function () {
+    return view('public.program');
+})->name('program');
 
 // Admin Routes
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -61,27 +57,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::post('/registration/verify', [RegistrationController::class, 'verifyRegistrationQr'])->name('registration.verify');
     Route::post('/registration/confirm', [RegistrationController::class, 'confirmRegistration'])->name('registration.confirm');
-
-    Route::get('/admin/programs', [App\Http\Controllers\ProgramController::class, 'adminIndex'])->name('admin.programs.index');
-    Route::get('/admin/programs/create', [App\Http\Controllers\ProgramController::class, 'create'])->name('admin.programs.create');
-    Route::post('/admin/programs', [App\Http\Controllers\ProgramController::class, 'store'])->name('admin.programs.store');
-    Route::get('/admin/programs/{id}/edit', [App\Http\Controllers\ProgramController::class, 'edit'])->name('admin.programs.edit');
-    Route::put('/admin/programs/{id}', [App\Http\Controllers\ProgramController::class, 'update'])->name('admin.programs.update');
-    Route::delete('/admin/programs/{id}', [App\Http\Controllers\ProgramController::class, 'destroy'])->name('admin.programs.destroy');
-
-    Route::get('/admin/donations', [App\Http\Controllers\DonationController::class, 'adminIndex'])->name('admin.donations.index');
-    Route::get('/admin/donations/create', [App\Http\Controllers\DonationController::class, 'create'])->name('admin.donations.create');
-    Route::post('/admin/donations', [App\Http\Controllers\DonationController::class, 'store'])->name('admin.donations.store');
-    Route::get('/admin/donations/{id}/edit', [App\Http\Controllers\DonationController::class, 'edit'])->name('admin.donations.edit');
-    Route::put('/admin/donations/{id}', [App\Http\Controllers\DonationController::class, 'update'])->name('admin.donations.update');
-    Route::delete('/admin/donations/{id}', [App\Http\Controllers\DonationController::class, 'destroy'])->name('admin.donations.destroy');
-
-    Route::get('/admin/chatbot', [App\Http\Controllers\ChatbotController::class, 'adminIndex'])->name('admin.chatbot.index');
-    Route::get('/admin/chatbot/create', [App\Http\Controllers\ChatbotController::class, 'create'])->name('admin.chatbot.create');
-    Route::post('/admin/chatbot', [App\Http\Controllers\ChatbotController::class, 'store'])->name('admin.chatbot.store');
-    Route::get('/admin/chatbot/{id}/edit', [App\Http\Controllers\ChatbotController::class, 'edit'])->name('admin.chatbot.edit');
-    Route::put('/admin/chatbot/{id}', [App\Http\Controllers\ChatbotController::class, 'update'])->name('admin.chatbot.update');
-    Route::delete('/admin/chatbot/{id}', [App\Http\Controllers\ChatbotController::class, 'destroy'])->name('admin.chatbot.destroy');
 });
 
 
