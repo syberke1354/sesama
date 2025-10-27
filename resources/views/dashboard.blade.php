@@ -86,7 +86,7 @@
 
     .banner-section {
         animation: fadeInUp 0.6s ease-out;
-        background: linear-gradient(135deg, #00A651 0%, #00c968 100%);
+        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
         color: white;
         padding: 30px;
         border-radius: 12px;
@@ -110,7 +110,7 @@
         border-radius: 12px;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        border-left: 4px solid var(--primary-green);
+        border-left: 4px solid var(--primary-blue);
         animation: fadeInUp 0.6s ease-out;
         animation-fill-mode: both;
         background: white;
@@ -170,7 +170,7 @@
     }
 
     .progress-bar {
-        background: var(--primary-green);
+        background: var(--primary-blue);
         transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
@@ -346,72 +346,77 @@
 </div>
 
 <div class="row mb-4">
+    <!-- Total Penerima -->
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card h-100">
+        <div class="card stat-card h-100" style="border-left-color: #00c853;">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <p class="text-muted text-uppercase mb-1" style="font-size: 12px; font-weight: 600;">Total Penerima</p>
-                        <h2 class="fw-bold mb-0" style="color: var(--primary-green);">{{ $totalRecipients }}</h2>
+                        <p class="text-muted text-uppercase mb-1" style="font-size:12px;font-weight:600;">Total Penerima</p>
+                        <h2 class="fw-bold mb-0" style="color:#00c853;">{{ $totalRecipients }}</h2>
                     </div>
-                    <div class="stat-icon" style="background-color: #e8f5e9;">
-                        <i class="fas fa-users" style="color: var(--primary-green);"></i>
+                    <div class="stat-icon" style="background-color:#e8f5e9;">
+                        <i class="fas fa-users" style="color:#00c853;"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Sudah Menerima -->
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card h-100" style="border-left-color: #28a745;">
+        <div class="card stat-card h-100" style="border-left-color:#1e40af;">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <p class="text-muted text-uppercase mb-1" style="font-size: 12px; font-weight: 600;">Sudah Menerima</p>
-                        <h2 class="fw-bold mb-0" style="color: #28a745;">{{ $distributedCount }}</h2>
+                        <p class="text-muted text-uppercase mb-1" style="font-size:12px;font-weight:600;">Sudah Menerima</p>
+                        <h2 class="fw-bold mb-0" style="color:#1e40af;">{{ $distributedCount }}</h2>
                     </div>
-                    <div class="stat-icon" style="background-color: #e8f5e9;">
-                        <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                    <div class="stat-icon" style="background-color:#dbe4f7;">
+                        <i class="fas fa-check-circle" style="color:#1e40af;"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Belum Menerima -->
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card h-100" style="border-left-color: #ffc107;">
+        <div class="card stat-card h-100" style="border-left-color:#ffc107;">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <p class="text-muted text-uppercase mb-1" style="font-size: 12px; font-weight: 600;">Belum Menerima</p>
-                        <h2 class="fw-bold mb-0" style="color: #ffc107;">{{ $pendingCount }}</h2>
+                        <p class="text-muted text-uppercase mb-1" style="font-size:12px;font-weight:600;">Belum Menerima</p>
+                        <h2 class="fw-bold mb-0" style="color:#ffc107;">{{ $pendingCount }}</h2>
                     </div>
-                    <div class="stat-icon" style="background-color: #fff8e1;">
-                        <i class="fas fa-clock" style="color: #ffc107;"></i>
+                    <div class="stat-icon" style="background-color:#fff8e1;">
+                        <i class="fas fa-clock" style="color:#ffc107;"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Progress -->
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card h-100" style="border-left-color: #17a2b8;">
+        <div class="card stat-card h-100" style="border-left-color:#17a2b8;">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <p class="text-muted text-uppercase mb-1" style="font-size: 12px; font-weight: 600;">Progress</p>
-                        <h2 class="fw-bold mb-0" style="color: #17a2b8;">
+                        <p class="text-muted text-uppercase mb-1" style="font-size:12px;font-weight:600;">Progress</p>
+                        <h2 class="fw-bold mb-0" style="color:#17a2b8;">
                             {{ $totalRecipients > 0 ? round(($distributedCount / $totalRecipients) * 100) : 0 }}%
                         </h2>
                     </div>
-                    <div class="stat-icon" style="background-color: #e0f7fa;">
-                        <i class="fas fa-chart-line" style="color: #17a2b8;"></i>
+                    <div class="stat-icon" style="background-color:#e0f7fa;">
+                        <i class="fas fa-chart-line" style="color:#17a2b8;"></i>
                     </div>
                 </div>
-                <div class="progress mt-3" style="height: 8px; background: #e0f7fa; border-radius: 10px; overflow: hidden;">
+                <div class="progress mt-3" style="height:8px;background:#e0f7fa;border-radius:10px;overflow:hidden;">
                     <div class="progress-bar" role="progressbar"
-                         style="width: 0%; background: linear-gradient(90deg, #17a2b8, #00c9db);"
-                         data-target="{{ $totalRecipients > 0 ? ($distributedCount / $totalRecipients) * 100 : 0 }}"></div>
+                         style="width:0%; background: linear-gradient(90deg,#17a2b8,#00c9db);"
+                         data-target="{{ $totalRecipients > 0 ? ($distributedCount / $totalRecipients) * 100 : 0 }}">
+                    </div>
                 </div>
             </div>
         </div>
@@ -419,18 +424,19 @@
 </div>
 
 <div class="row mb-4">
+    <!-- Tentang Program -->
     <div class="col-md-6 mb-4">
-        <div class="info-box h-100">
+        <div class="info-box h-100" style="border-color:#00c853;">
             <div class="d-flex align-items-center mb-3">
-                <div class="stat-icon me-3" style="background-color: #e8f5e9;">
-                    <i class="fas fa-info-circle" style="color: var(--primary-green);"></i>
+                <div class="stat-icon me-3" style="background-color:#e8f5e9;">
+                    <i class="fas fa-info-circle" style="color:#00c853;"></i>
                 </div>
-                <h5 class="mb-0 fw-bold">Tentang Program</h5>
+                <h5 class="mb-0 fw-bold" style="color:#00c853;">Tentang Program</h5>
             </div>
             <p class="text-muted mb-2">
                 Program Khitan Gratis merupakan bentuk kepedulian Bazma dan Pertamina dalam mendukung kesehatan dan kesejahteraan anak-anak Indonesia.
             </p>
-            <ul class="text-muted" style="font-size: 14px;">
+            <ul class="text-muted" style="font-size:14px;">
                 <li>Pelayanan khitan gratis untuk anak kurang mampu</li>
                 <li>Didukung oleh tenaga medis profesional</li>
                 <li>Dilengkapi dengan paket nutrisi dan obat-obatan</li>
@@ -438,70 +444,27 @@
         </div>
     </div>
 
+    <!-- Kegiatan Terkini -->
     <div class="col-md-6 mb-4">
-        <div class="info-box h-100">
+        <div class="info-box h-100" style="border-color:#ff9800;">
             <div class="d-flex align-items-center mb-3">
-                <div class="stat-icon me-3" style="background-color: #fff8e1;">
-                    <i class="fas fa-calendar-check" style="color: #ffc107;"></i>
+                <div class="stat-icon me-3" style="background-color:#fff8e1;">
+                    <i class="fas fa-calendar-check" style="color:#ff9800;"></i>
                 </div>
-                <h5 class="mb-0 fw-bold">Kegiatan Terkini</h5>
+                <h5 class="mb-0 fw-bold" style="color:#ff9800;">Kegiatan Terkini</h5>
             </div>
-            <div class="activity-item">
-                <h6 class="mb-1 fw-bold" style="color: var(--primary-dark);">Registrasi Penerima Bantuan</h6>
-                <p class="mb-0 text-muted" style="font-size: 13px;">Pendaftaran penerima bantuan sedang berlangsung</p>
+            <div class="activity-item" style="border-left-color:#ff9800;">
+                <h6 class="mb-1 fw-bold" style="color:#ff9800;">Registrasi Penerima Bantuan</h6>
+                <p class="mb-0 text-muted" style="font-size:13px;">Pendaftaran penerima bantuan sedang berlangsung</p>
             </div>
-            <div class="activity-item">
-                <h6 class="mb-1 fw-bold" style="color: var(--primary-dark);">Verifikasi Data</h6>
-                <p class="mb-0 text-muted" style="font-size: 13px;">Tim sedang memverifikasi kelengkapan data peserta</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row mb-4">
-    <div class="col-12">
-        <h5 class="fw-bold mb-3 fade-in" style="color: var(--primary-dark);">Informasi & Pengumuman</h5>
-    </div>
-    <div class="col-md-6 mb-3">
-        <div class="card promo-card h-100" style="border: none; overflow: hidden;">
-            <div style="background: linear-gradient(135deg, #00A651, #00c968); padding: 30px; color: white;">
-                <h5 class="fw-bold mb-2">Tentang Bazma</h5>
-                <p class="mb-3" style="font-size: 14px;">
-                    Bazma adalah lembaga amil zakat nasional yang telah dipercaya menyalurkan bantuan untuk pendidikan dan kesehatan anak Indonesia.
-                </p>
-                <a href="https://bazma.org" target="_blank" class="btn btn-light btn-sm">
-                    <i class="fas fa-globe me-2"></i> Kunjungi Website
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 mb-3">
-        <div class="card promo-card h-100" style="border: none; overflow: hidden;">
-            <div style="background: linear-gradient(135deg, #0066B3, #0088dd); padding: 30px; color: white;">
-                <h5 class="fw-bold mb-2">Tentang Pertamina</h5>
-                <p class="mb-3" style="font-size: 14px;">
-                    PT Pertamina (Persero) berkomitmen memberikan manfaat nyata bagi masyarakat melalui program tanggung jawab sosial perusahaan.
-                </p>
-                <a href="https://www.pertamina.com" target="_blank" class="btn btn-light btn-sm">
-                    <i class="fas fa-globe me-2"></i> Kunjungi Website
-                </a>
+            <div class="activity-item" style="border-left-color:#ff9800;">
+                <h6 class="mb-1 fw-bold" style="color:#ff9800;">Verifikasi Data</h6>
+                <p class="mb-0 text-muted" style="font-size:13px;">Tim sedang memverifikasi kelengkapan data peserta</p>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row fade-in">
-    <div class="col-12">
-        <div class="d-flex gap-2 flex-wrap">
-            <a href="{{ route('recipients.index') }}" class="btn btn-primary">
-                <i class="fas fa-list me-2"></i> Lihat Semua Data
-            </a>
-            <a href="{{ route('recipients.scan') }}" class="btn btn-outline-success">
-                <i class="fas fa-qrcode me-2"></i> Scan QR Code
-            </a>
-        </div>
-    </div>
-</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
