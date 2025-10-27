@@ -204,7 +204,7 @@
                 $('#resultCard').show();
 
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/recipients/verify-qr',
+                    url: '{{ route('recipients.verify-qr') }}',
                     method: 'POST',
                     data: {
                         qr_code: qrCode,

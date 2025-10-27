@@ -29,7 +29,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/recipients/{recipient}/qr-code', [RecipientController::class, 'generateQrCode'])->name('recipients.qr-code');
     Route::get('/recipients/{recipient}/qr-print', [RecipientController::class, 'printQrCode'])->name('recipients.qr-print');
     Route::get('/scan', [RecipientController::class, 'scanQr'])->name('recipients.scan');
-    Route::post('/verify-qr', [RecipientController::class, 'verifyQr'])->name('recipients.verify-qr');
+    Route::post('/recipients/verify-qr', [RecipientController::class, 'verifyQr'])->name('recipients.verify-qr');
     Route::post('/recipients/{recipient}/distribute', [RecipientController::class, 'distribute'])->name('recipients.distribute');
     Route::get('/recipients/{recipient}/receipt', [RecipientController::class, 'generateReceipt'])->name('recipients.receipt');
     Route::get('/recipients/{recipient}/signature', [RecipientController::class, 'generateSignatureForm'])->name('recipients.signature');
