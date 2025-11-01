@@ -6,7 +6,7 @@
         <div class="text-center mb-3">
             <div class="d-flex justify-content-center mb-2">
                 <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
-                    style="width: 48px; height: 48px; background: linear-gradient(135deg, #3b82f6, #ec4899);">
+                    style="width: 48px; height: 48px; background: linear-gradient(135deg, #ffffff );">
                     <span class="fw-bold text-primary"
                         style="font-size: 18px;">{{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}</span>
                 </div>

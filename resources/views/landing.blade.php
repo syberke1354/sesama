@@ -378,7 +378,6 @@
 <body>
   <header>
     <div class="logo">
-      <div class="mark">B</div>
       <span>BAZMA Pertamina</span>
     </div>
     <nav>
